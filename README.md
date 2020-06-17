@@ -11,9 +11,11 @@ Pytorch > 1.0 CUDA > 7.0, Python> 3.0 should work
 # Use
 ```
 git clone https://github.com/zhaozhongch/Pytorch_UNET_MultiObjects.git
-cd img_data
-tar -xvf 701_StillsRaw_full.tar.xz
-tar -xvf LabeledApproved_full.tar.xz
+git clone https://github.com/PengKiKi/camvid
+cd camvid
+mv 701_StillsRaw_full ../Pytorch_UNET_MultiObjects/img_data
+mv LabeledApproved_full ../Pytorch_UNET_MultiObjects/img_data
+cd ../Pytorch_UNET_MultiObjects/img_data
 python CamVid_utils.py
 ```
 Get a coffee ans wait for `CamVid_utils.py` parsing the data. It will generate a folder with image mask, data type is numpy. The original dataset only has image and its corresponding 3 channel mask (a certain rgb color corresponding to an object). To train the dataset, we need a 1 channel mask that just showing is a pixel belong to a identity.  
@@ -24,3 +26,6 @@ cd ..
 python unet_train.py
 ```
 It will generate a model at the current locaton `unet_model.pth`. Then run the `unet_val.py` to check the result. It will tell you the accuracy of each image prediction as well as showing the prediction 3 channel rgb mask.
+```
+python unet_val.py
+```
